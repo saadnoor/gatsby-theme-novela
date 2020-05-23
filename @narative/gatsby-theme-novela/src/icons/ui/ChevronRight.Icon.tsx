@@ -1,7 +1,7 @@
 import React from "react";
 
-const ChevronLeft = ({ fill }) => {
-  console.log('fill esheche', fill);
+const ChevronRight = ({ fill }) => {
+  console.log('fill esheche righr', fill);
 
   return (
 
@@ -19,4 +19,4 @@ const ChevronLeft = ({ fill }) => {
   </svg>
 )};
 
-export default ChevronLeft;
+export default ChevronRight;

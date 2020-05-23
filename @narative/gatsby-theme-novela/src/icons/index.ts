@@ -14,6 +14,7 @@ import Paypal from './social/Paypal.Icon';
 
 // UI
 import ChevronLeft from './ui/ChevronLeft.Icon';
+import ChevronRight from './ui/ChevronRight.Icon';
 import Copied from './ui/Copied.Icon';
 import Copy from './ui/Copy.Icon';
 import Ex from './ui/Ex.Icon';
@@ -38,6 +39,7 @@ export default {
   Paypal,
 
   ChevronLeft,
+  ChevronRight,
   Copied,
   Copy,
   Ex,

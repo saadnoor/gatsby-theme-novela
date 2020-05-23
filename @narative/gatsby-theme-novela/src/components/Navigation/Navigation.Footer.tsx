@@ -6,6 +6,7 @@ import Section from "@components/Section";
 import SocialLinks from "@components/SocialLinks";
 
 import mediaqueries from "@styles/media";
+import {SimpleBottomNavigation} from "./Navigation.Header";
 
 const siteQuery = graphql`
   {
@@ -42,6 +43,7 @@ function Footer() {
           </div>
         </FooterContainer>
       </Section>
+      <SimpleBottomNavigation/>
     </>
   );
 }

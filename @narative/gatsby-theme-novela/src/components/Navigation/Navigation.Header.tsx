@@ -4,7 +4,6 @@ import { Link, navigate } from "gatsby";
 import { useColorMode } from "theme-ui";
 
 import Section from "@components/Section";
-import Logo from "@components/Logo";
 
 import Icons from "@icons";
 import mediaqueries from "@styles/media";
@@ -13,6 +12,54 @@ import {
   getWindowDimensions,
   getBreakpointFromTheme,
 } from "@utils";
+import { makeStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import theme from "prism-react-renderer/themes/*";
+
+
+export function SimpleBottomNavigation() {
+  const [colorMode] = useColorMode();
+  const fill = colorMode === "dark" ? "#111216" : "#fff";
+  const iconFill = colorMode === "dark" ?  "#fff": "#111216";
+  const useStyles = makeStyles({
+    root: {
+      background: fill,
+      borderRadius: 3,
+      border: 0,
+      height: 48,
+      width: '100%',
+      position: 'fixed',
+      zIndex: 100,
+      bottom: 0,
+      padding: '0 30px',
+    },
+    label: {
+      textTransform: 'capitalize',
+      fontSize: '1.2rem',
+      marginBottom: 'auto',
+      color: "red"
+    }
+  });
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  console.log('Value is fill', fill);
+  return (
+    <BottomNavigation
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      showLabels
+      className={classes.root}
+    >
+      <BottomNavigationAction label="Recents" icon={<Icons.ChevronLeft fill={iconFill}/>} />
+      <BottomNavigationAction label="Favorites" icon={<Icons.ChevronRight fill={iconFill}/>} />
+      <BottomNavigationAction label="Nearby" icon={<Icons.ChevronLeft fill={iconFill}/>} />
+    </BottomNavigation>
+  );
+}
 
 function NavigationHeader() {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
@@ -51,9 +98,68 @@ function NavigationHeader() {
               <Icons.ChevronLeft fill={fill} />
             </BackArrowIconContainer>
           )}
-          <Logo fill={fill} />
+          <NavItemText
+            isDark={colorMode === "dark"}>
+            HOME
+          </NavItemText>
           <Hidden>Navigate back to the homepage</Hidden>
         </LogoLink>
+
+        <LogoLink
+          to="/"
+          data-a11y="false"
+          title="Navigate back to the homepage"
+          aria-label="Navigate back to the homepage"
+          back={showBackArrow ? "true" : "false"}
+        >
+          {showBackArrow && (
+            <BackArrowIconContainer>
+              <Icons.ChevronLeft fill={fill} />
+            </BackArrowIconContainer>
+          )}
+          <NavItemText
+            isDark={colorMode === "dark"}>
+            ABOUT ME
+          </NavItemText>
+          <Hidden>Navigate back to the homepage</Hidden>
+        </LogoLink>
+        <LogoLink
+          to="/"
+          data-a11y="false"
+          title="Navigate back to the homepage"
+          aria-label="Navigate back to the homepage"
+          back={showBackArrow ? "true" : "false"}
+        >
+          {showBackArrow && (
+            <BackArrowIconContainer>
+              <Icons.ChevronLeft fill={fill} />
+            </BackArrowIconContainer>
+          )}
+          <NavItemText
+            isDark={colorMode === "dark"}>
+            PROGRAMMING
+          </NavItemText>
+          <Hidden>Navigate back to the homepage</Hidden>
+        </LogoLink>
+        <LogoLink
+          to="/"
+          data-a11y="false"
+          title="Navigate back to the homepage"
+          aria-label="Navigate back to the homepage"
+          back={showBackArrow ? "true" : "false"}
+        >
+          {showBackArrow && (
+            <BackArrowIconContainer>
+              <Icons.ChevronLeft fill={fill} />
+            </BackArrowIconContainer>
+          )}
+          <NavItemText
+            isDark={colorMode === "dark"}>
+            STORIES
+          </NavItemText>
+          <Hidden>Navigate back to the homepage</Hidden>
+        </LogoLink>
+        <br/>
         <NavControls>
           {showBackArrow ? (
             <button
@@ -169,13 +275,17 @@ const NavContainer = styled.div`
 const LogoLink = styled(Link)<{ back: string }>`
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: space-between;
+  font-weight: 600;
   left: ${p => (p.back === "true" ? "-54px" : 0)};
 
   ${mediaqueries.desktop_medium`
     left: 0
   `}
-
+  
+  ${mediaqueries.phablet`
+    display: none;
+  `}
   &[data-a11y="true"]:focus::after {
     content: "";
     position: absolute;
@@ -338,7 +448,9 @@ const MoonMask = styled.div<{ isDark: boolean }>`
   opacity: ${p => (p.isDark ? 0 : 1)};
   transition: ${p => p.theme.colorModeTransition}, transform 0.45s ease;
 `;
-
+const NavItemText = styled.div<{ isDark: boolean }>`
+  color: ${p => (p.isDark ? 'white' : 'black')};
+`;
 const Hidden = styled.span`
   position: absolute;
   display: inline-block;
