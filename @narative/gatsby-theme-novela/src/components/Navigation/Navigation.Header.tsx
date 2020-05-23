@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Link, navigate } from "gatsby";
 import { useColorMode } from "theme-ui";
-
+import RestoreIcon from '@material-ui/icons/Restore';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Section from "@components/Section";
-
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
+import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import Icons from "@icons";
 import mediaqueries from "@styles/media";
 import {
@@ -16,7 +19,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import theme from "prism-react-renderer/themes/*";
+import {blueviolet} from "color-name";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+const themeLocal = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#ff9900'
+    }
+  }
+});
 
 export function SimpleBottomNavigation() {
   const [colorMode] = useColorMode();
@@ -32,21 +44,32 @@ export function SimpleBottomNavigation() {
       position: 'fixed',
       zIndex: 100,
       bottom: 0,
-      padding: '0 30px',
+      // padding: '0 30px',
+    },
+    wrapper: {
+      color: iconFill,
+      '&$selected': {
+        color: '#ff9900',
+      },
+      fontSize: '0.9rem',
+      marginBottom: 'auto',
+      marginTop: 'auto',
     },
     label: {
-      textTransform: 'capitalize',
-      fontSize: '1.2rem',
+      fontSize: '0.9rem',
       marginBottom: 'auto',
-      color: "red"
+      marginTop: 'auto',
+      color: iconFill
+    },
+    selected: {
+      color: '#ff9900'
     }
   });
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
-  console.log('Value is fill', fill);
   return (
-    <BottomNavigation
+    <MuiThemeProvider theme={themeLocal}>
+      <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
@@ -54,10 +77,13 @@ export function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Recents" icon={<Icons.ChevronLeft fill={iconFill}/>} />
-      <BottomNavigationAction label="Favorites" icon={<Icons.ChevronRight fill={iconFill}/>} />
-      <BottomNavigationAction label="Nearby" icon={<Icons.ChevronLeft fill={iconFill}/>} />
+      <BottomNavigationAction label="HOME" icon={<HomeRoundedIcon/>} className={classes.wrapper}/>
+      <BottomNavigationAction label="ABOUT ME" icon={<AccountCircleRoundedIcon/>} className={classes.wrapper}/>
+      <BottomNavigationAction label="PROGRAMMING" icon={<CodeRoundedIcon/>} className={classes.wrapper}/>
+      <BottomNavigationAction label="STORIES" icon={<MenuBookRoundedIcon/>} className={classes.wrapper}/>
     </BottomNavigation>
+  </MuiThemeProvider>
+
   );
 }
 

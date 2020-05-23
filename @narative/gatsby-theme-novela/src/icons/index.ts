@@ -23,6 +23,11 @@ import ToggleOpen from './ui/ToggleOpen.Icon';
 import ToggleClose from './ui/ToggleClose.Icon';
 import Rows from './ui/Rows.Icon';
 import Tiles from './ui/Tiles.Icon';
+import Home from './ui/Home.Icon';
+import Profile from './ui/Profile.Icon';
+import Programming from './ui/Programming.Icon';
+import Stories from './ui/Stories.Icon';
+
 
 export default {
   Behance,
@@ -42,6 +47,10 @@ export default {
   ChevronRight,
   Copied,
   Copy,
+  Home,
+  Programming,
+  Stories,
+  Profile,
   Ex,
   Link,
   ToggleClose,

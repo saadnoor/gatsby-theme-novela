@@ -43,7 +43,7 @@ function Footer() {
           </div>
         </FooterContainer>
       </Section>
-      <SimpleBottomNavigation/>
+        <SimpleBottomNavigation/>
     </>
   );
 }
