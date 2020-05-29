@@ -6,7 +6,7 @@ import Section from "@components/Section";
 import SocialLinks from "@components/SocialLinks";
 
 import mediaqueries from "@styles/media";
-import {SimpleBottomNavigation} from "./Navigation.Header";
+import SimpleBottomNavigation from "../BottomNavBar/BottomNavBar";
 
 const siteQuery = graphql`
   {

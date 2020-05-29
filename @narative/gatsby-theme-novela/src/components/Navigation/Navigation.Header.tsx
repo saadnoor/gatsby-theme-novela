@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Link, navigate } from "gatsby";
+import { Link, navigate, navigateTo } from "gatsby";
 import { useColorMode } from "theme-ui";
-import RestoreIcon from '@material-ui/icons/Restore';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Section from "@components/Section";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -18,74 +17,92 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import theme from "prism-react-renderer/themes/*";
-import {blueviolet} from "color-name";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-const themeLocal = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#ff9900'
-    }
-  }
-});
+// const themeLocal = createMuiTheme({
+//   palette: {
+//     primary: {
+//       main: '#ff9900'
+//     }
+//   }
+// });
 
-export function SimpleBottomNavigation() {
-  const [colorMode] = useColorMode();
-  const fill = colorMode === "dark" ? "#111216" : "#fff";
-  const iconFill = colorMode === "dark" ?  "#fff": "#111216";
-  const useStyles = makeStyles({
-    root: {
-      background: fill,
-      borderRadius: 3,
-      border: 0,
-      height: 48,
-      width: '100%',
-      position: 'fixed',
-      zIndex: 100,
-      bottom: 0,
-      // padding: '0 30px',
-    },
-    wrapper: {
-      color: iconFill,
-      '&$selected': {
-        color: '#ff9900',
-      },
-      fontSize: '0.9rem',
-      marginBottom: 'auto',
-      marginTop: 'auto',
-    },
-    label: {
-      fontSize: '0.9rem',
-      marginBottom: 'auto',
-      marginTop: 'auto',
-      color: iconFill
-    },
-    selected: {
-      color: '#ff9900'
-    }
-  });
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  return (
-    <MuiThemeProvider theme={themeLocal}>
-      <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
-      showLabels
-      className={classes.root}
-    >
-      <BottomNavigationAction label="HOME" icon={<HomeRoundedIcon/>} className={classes.wrapper}/>
-      <BottomNavigationAction label="ABOUT ME" icon={<AccountCircleRoundedIcon/>} className={classes.wrapper}/>
-      <BottomNavigationAction label="PROGRAMMING" icon={<CodeRoundedIcon/>} className={classes.wrapper}/>
-      <BottomNavigationAction label="STORIES" icon={<MenuBookRoundedIcon/>} className={classes.wrapper}/>
-    </BottomNavigation>
-  </MuiThemeProvider>
+// export default function SimpleBottomNavigation() {
+//   const [colorMode] = useColorMode();
+//   const fill = colorMode === "dark" ? "#111216" : "#fff";
+//   const iconFill = colorMode === "dark" ?  "#fff": "#111216";
+//   const useStyles = makeStyles({
+//     root: {
+//       background: fill,
+//       borderRadius: 3,
+//       border: 0,
+//       height: 48,
+//       width: '100%',
+//       position: 'fixed',
+//       zIndex: 100,
+//       bottom: 0,
+//       // padding: '0 30px',
+//     },
+//     wrapper: {
+//       color: iconFill,
+//       '&$selected': {
+//         color: '#ff9900',
+//       },
+//       fontSize: '0.9rem',
+//       marginBottom: 'auto',
+//       marginTop: 'auto',
+//     },
+//     label: {
+//       fontSize: '0.9rem',
+//       marginBottom: 'auto',
+//       marginTop: 'auto',
+//       color: iconFill
+//     },
+//     selected: {
+//       color: '#ff9900'
+//     }
+//   });
+//   const classes = useStyles();
+//   const [value, setValue] = React.useState(0);
+//   return (
+//     <MuiThemeProvider theme={themeLocal}>
+//       <BottomNavigation
+//       value={value}
+//       onChange={(event, newValue) => {
+//         console.log(value, event, newValue);
+//         event.preventDefault()
+//         switch(newValue){
+//           case 0:
+//             console.log(0);
+//             navigateTo("/");
+//             break;
+//           case 1:
+//             console.log(1);
+//            navigateTo("/about-me");
+//             break;
+//           case 2:
+//             console.log(2);
+//             navigateTo("/category/gatsby");
+//             break;
+//           case 3:
+//             console.log(3);
+//            navigateTo("/category/gatsby");
+//             break;
+//         };
+//         setValue(newValue);
+//       }}
+//       showLabels
+//       className={classes.root}
+//     >
+//       <BottomNavigationAction label="HOME" icon={<HomeRoundedIcon/>} className={classes.wrapper}/>
+//       <BottomNavigationAction label="ABOUT ME" icon={<AccountCircleRoundedIcon/>} className={classes.wrapper}/>
+//       <BottomNavigationAction label="PROGRAMMING" icon={<CodeRoundedIcon/>} className={classes.wrapper}/>
+//       <BottomNavigationAction label="STORIES" icon={<MenuBookRoundedIcon/>} className={classes.wrapper}/>
+//     </BottomNavigation>
+//   </MuiThemeProvider>
 
-  );
-}
+//   );
+// }
 
 function NavigationHeader() {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
@@ -104,7 +121,8 @@ function NavigationHeader() {
     const isNotPaginated = !location.pathname.includes("/page/");
 
     setShowBackArrow(
-      previousPathWasHomepage && isNotPaginated && width <= phablet,
+      //previousPathWasHomepage && isNotPaginated && width <= phablet,
+      false
     );
     setPreviousPath(prev);
   }, []);
@@ -147,7 +165,7 @@ function NavigationHeader() {
             isDark={colorMode === "dark"}>
             ABOUT ME
           </NavItemText>
-          <Hidden>Navigate back to the homepage</Hidden>
+          <Hidden>Learn more about me</Hidden>
         </LogoLink>
         <LogoLink
           to="/"
@@ -165,7 +183,7 @@ function NavigationHeader() {
             isDark={colorMode === "dark"}>
             PROGRAMMING
           </NavItemText>
-          <Hidden>Navigate back to the homepage</Hidden>
+          <Hidden>Find the post related to programming</Hidden>
         </LogoLink>
         <LogoLink
           to="/"
@@ -183,7 +201,7 @@ function NavigationHeader() {
             isDark={colorMode === "dark"}>
             STORIES
           </NavItemText>
-          <Hidden>Navigate back to the homepage</Hidden>
+          <Hidden>Find the Bengali stories I've written</Hidden>
         </LogoLink>
         <br/>
         <NavControls>
